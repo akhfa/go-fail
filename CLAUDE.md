@@ -46,3 +46,26 @@ curl http://localhost:8080/
 - `TIME_BEFORE_EXIT` - Auto-termination time in seconds (default: 0, never; -1 = random 5-60 seconds)
 - `EXIT_CODE` - Exit code when terminating (default: 0)
 - `PORT` - Server port (default: 8080)
+
+## Kubernetes Deployment
+
+```bash
+# Install with Helm
+helm install my-go-fail ./helm/go-fail
+
+# Install with custom configuration
+helm install my-go-fail ./helm/go-fail \
+  --set config.startupTime=5 \
+  --set config.timeBeforeExit=30 \
+  --set config.exitCode=1
+
+# Upgrade deployment
+helm upgrade my-go-fail ./helm/go-fail
+
+# Uninstall
+helm uninstall my-go-fail
+
+# Test health endpoint in Kubernetes
+kubectl port-forward svc/my-go-fail-go-fail 8080:8080
+curl -i http://localhost:8080/health
+```

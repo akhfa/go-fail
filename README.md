@@ -74,6 +74,70 @@ go run main.go -time-before-exit=-1 -exit-code=1
 STARTUP_TIME=15 go run main.go
 ```
 
+## Kubernetes Deployment
+
+Deploy to Kubernetes using the included Helm chart:
+
+### Quick Start
+```bash
+# Install with default configuration
+helm install my-go-fail ./helm/go-fail
+
+# Test the deployment
+kubectl port-forward svc/my-go-fail-go-fail 8080:8080
+curl -i http://localhost:8080/health
+```
+
+### Custom Configuration
+```bash
+# Install with custom startup and termination settings
+helm install my-go-fail ./helm/go-fail \
+  --set config.startupTime=10 \
+  --set config.timeBeforeExit=60 \
+  --set config.exitCode=1 \
+  --set replicaCount=2
+
+# Or create a custom values.yaml file
+helm install my-go-fail ./helm/go-fail -f custom-values.yaml
+```
+
+### Available Helm Values
+```yaml
+replicaCount: 1
+image:
+  repository: go-fail
+  tag: latest
+  pullPolicy: IfNotPresent
+service:
+  type: ClusterIP
+  port: 8080
+config:
+  startupTime: 2
+  timeBeforeExit: 0
+  exitCode: 0
+  port: 8080
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+```
+
+### Management Commands
+```bash
+# Upgrade deployment
+helm upgrade my-go-fail ./helm/go-fail
+
+# View deployment status
+helm status my-go-fail
+
+# Uninstall
+helm uninstall my-go-fail
+```
+
 ## Requirements
 
 - Go 1.25 or higher
+- For Kubernetes: Helm 3.0+ and kubectl configured
