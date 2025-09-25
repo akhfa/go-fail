@@ -72,20 +72,14 @@ func main() {
 		time.Sleep(time.Duration(config.StartupTime) * time.Second)
 		ready = true
 		log.Printf("Health check is now ready after %d seconds", config.StartupTime)
-	}()
 
-	if config.TimeBeforeExit > 0 {
-		go func() {
-			var exitTime int
-			if config.TimeBeforeExit > 0 {
-				exitTime = config.TimeBeforeExit
-			}
-
-			time.Sleep(time.Duration(exitTime) * time.Second)
-			log.Printf("Terminating server after %d seconds with exit code %d", exitTime, config.ExitCode)
+		if config.TimeBeforeExit > 0 {
+			log.Printf("Server will terminate in %d seconds after becoming ready", config.TimeBeforeExit)
+			time.Sleep(time.Duration(config.TimeBeforeExit) * time.Second)
+			log.Printf("Terminating server after %d seconds of being ready with exit code %d", config.TimeBeforeExit, config.ExitCode)
 			os.Exit(config.ExitCode)
-		}()
-	}
+		}
+	}()
 
 	http.HandleFunc("/health", healthHandler)
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
