@@ -17,6 +17,9 @@ go run main.go -startup-time=5 -time-before-exit=30 -exit-code=1
 
 # Run with environment variables
 STARTUP_TIME=3 TIME_BEFORE_EXIT=60 EXIT_CODE=2 go run main.go
+
+# Run with random termination time (5-60 seconds)
+go run main.go -time-before-exit=-1
 ```
 
 ## Testing
@@ -40,6 +43,6 @@ curl http://localhost:8080/
 ## Configuration Parameters
 
 - `STARTUP_TIME` - Startup delay in seconds (default: 2)
-- `TIME_BEFORE_EXIT` - Auto-termination time in seconds (default: 0, never)
+- `TIME_BEFORE_EXIT` - Auto-termination time in seconds (default: 0, never; -1 = random 5-60 seconds)
 - `EXIT_CODE` - Exit code when terminating (default: 0)
 - `PORT` - Server port (default: 8080)
