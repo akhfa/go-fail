@@ -1,0 +1,6 @@
+[settings]
+disable_backends=["asdf"]
+
+[tools]
+go = "1.25"
+
