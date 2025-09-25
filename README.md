@@ -37,7 +37,7 @@ go build -o go-fail main.go
 | Parameter | Environment Variable | Default | Description |
 |-----------|---------------------|---------|-------------|
 | `-startup-time` | `STARTUP_TIME` | 2 | Seconds before health check returns 200 |
-| `-time-before-exit` | `TIME_BEFORE_EXIT` | 0 | Seconds before auto-termination (0 = never) |
+| `-time-before-exit` | `TIME_BEFORE_EXIT` | 0 | Seconds before auto-termination (0 = never, -1 = random 5-60s) |
 | `-exit-code` | `EXIT_CODE` | 0 | Exit code when terminating |
 | `-port` | `PORT` | 8080 | Server port |
 
@@ -63,6 +63,9 @@ curl -i http://localhost:8080/health
 ```bash
 # Start server that terminates after 30 seconds with exit code 1
 go run main.go -time-before-exit=30 -exit-code=1
+
+# Start server that terminates randomly between 5-60 seconds
+go run main.go -time-before-exit=-1 -exit-code=1
 ```
 
 ### Kubernetes Readiness Probe Testing
