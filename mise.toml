@@ -3,4 +3,8 @@ disable_backends=["asdf"]
 
 [tools]
 go = "1.25"
+helm = "latest"
+kustomize = "latest"
+node = "24"
+"npm:@anthropic-ai/claude-code" = "latest"
 
