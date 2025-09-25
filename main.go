@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"math/rand"
 	"net/http"
 	"os"
 	"strconv"
@@ -77,6 +78,12 @@ func main() {
 			log.Printf("Server will terminate in %d seconds after becoming ready", config.TimeBeforeExit)
 			time.Sleep(time.Duration(config.TimeBeforeExit) * time.Second)
 			log.Printf("Terminating server after %d seconds of being ready with exit code %d", config.TimeBeforeExit, config.ExitCode)
+			os.Exit(config.ExitCode)
+		} else if config.TimeBeforeExit == -1 {
+			randomTime := rand.Intn(56) + 5
+			log.Printf("Server will terminate in %d seconds (random) after becoming ready", randomTime)
+			time.Sleep(time.Duration(randomTime) * time.Second)
+			log.Printf("Terminating server after %d seconds of being ready with exit code %d", randomTime, config.ExitCode)
 			os.Exit(config.ExitCode)
 		}
 	}()
