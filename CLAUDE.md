@@ -1,5 +1,8 @@
 # Claude Code Instructions
 
+## Common Instruction
+Don't put any comment inside the code
+
 ## Development Commands
 
 ```bash
