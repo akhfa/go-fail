@@ -1,9 +1,9 @@
 replicaCount: 1
 
 image:
-  repository: go-fail
+  repository: ghcr.io/go-fail/go-fail
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "main"
 
 nameOverride: ""
 fullnameOverride: ""
