@@ -1,0 +1,13 @@
+on:
+  repository_dispatch:
+    types: [deploy-success]
+
+jobs:
+  handle-deployment-success:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Handle ArgoCD deployment success
+        run: |
+          echo "App: ${{ github.event.client_payload.app_name }}"
+          echo "Status: ${{ github.event.client_payload.sync_status }}"
+          echo "Revision: ${{ github.event.client_payload.revision }}"
