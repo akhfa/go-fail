@@ -13,7 +13,7 @@ service:
   port: 8080
 
 config:
-  startupTime: 3
+  startupTime: 15
   timeBeforeExit: 0
   exitCode: 0
   port: 8080
