@@ -8,9 +8,8 @@ RUN go mod download
 COPY . .
 RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o go-fail main.go
 
-FROM alpine:latest
+FROM gcr.io/distroless/static-debian12
 
-RUN apk --no-cache add ca-certificates
 WORKDIR /app
 
 COPY --from=builder /app/go-fail .
